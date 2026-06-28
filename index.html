@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="0xkhingx — Frontend Engineer, ML Engineer & UI/UX Designer. Building interfaces that are clear, functional, and purposefully crafted." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>0x</text></svg>" />
   <title>0xkhingx</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -88,11 +90,16 @@
     }
 
     html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .cursor-ring, .cursor-dot { display: none; }
+    }
 
     body {
       font-family: 'DM Sans', sans-serif;
       background: var(--bg);
-      color: var(--card-text);
+      color: var(--text);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -193,6 +200,22 @@
       flex-shrink: 0;
     }
     .theme-toggle:hover { transform: rotate(20deg); }
+
+    /* ─── MOBILE NAV TOGGLE ─── */
+    .nav-toggle {
+      display: none; flex-direction: column; gap: 4px;
+      width: 32px; height: 32px;
+      background: none; border: none; cursor: pointer;
+      padding: 6px; flex-shrink: 0;
+    }
+    .nav-toggle span {
+      display: block; width: 100%; height: 2px;
+      background: var(--text); border-radius: 2px;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+    @media (max-width: 768px) {
+      .nav-toggle { display: flex; order: -1; }
+    }
 
     /* ─── HERO ─── */
     #hero {
@@ -466,8 +489,8 @@
 
     /* ─── SERVICES ─── */
     #services {
-  padding: 50px 40px;
-}
+      padding: 50px 40px;
+    }
 
     .service-list { position: relative; z-index: 1; overflow: visible; }
 
@@ -622,7 +645,7 @@
 
     .contact-btn {
       display: inline-flex; align-items: center; gap: 8px;
-      background: #111 !important; color: #fff !important;
+      background: var(--text); color: var(--bg);
       border-radius: 999px; padding: 15px 30px;
       font-size: 14px; font-family: 'DM Sans', sans-serif;
       font-weight: 400; text-decoration: none;
@@ -758,7 +781,16 @@
     @media (max-width: 768px) {
       body { padding: 8px; gap: 8px; }
       #hero nav { padding: 20px; gap: 10px; }
-      #hero .nav-links { display: none; }
+      #hero .nav-links {
+        display: none;
+        position: absolute; top: 100%; left: 12px; right: 12px;
+        background: var(--card-bg); border-radius: 16px;
+        padding: 16px 20px; flex-direction: column; gap: 12px;
+        border: 1px solid var(--border); z-index: 100;
+        box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+      }
+      #hero .nav-links.open { display: flex; }
+      #hero nav { position: relative; }
       .hero-body { padding: 0 20px 32px; }
       .hero-content { flex-direction: column; align-items: flex-start; gap: 20px; margin-top: 12px; }
       .image-wrap { position: relative; left: auto; transform: none; width: 100%; height: 260px; margin: 16px 0; }
@@ -832,7 +864,7 @@
   </div>
 
   <!-- ═══════════════════════════════ HERO ═══════════════════════════════ -->
-  <section class="card" id="hero">
+  <header class="card" id="hero">
     <nav aria-label="Primary navigation">
       <div class="availability-pill">
         <span class="dot"></span>
@@ -845,6 +877,9 @@
         <li><a href="#experience">Experience</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" title="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
       <div class="nav-right">
         <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
         <button class="cta-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Let's Talk ↗</button>
@@ -853,20 +888,20 @@
 
     <div class="hero-body">
       <div class="hero-name reveal">
-        <span class="name-outline">Ox</span> <span class="name-fill">khingx</span>
+        <span class="name-outline">0x</span> <span class="name-fill">khingx</span>
       </div>
 
       <div class="hero-content">
         <div class="hero-left reveal reveal-delay-1">
-          <p class="role"><span id="typedText"></span><span class="typed-cursor"></span></p>
+          <p class="role"><span id="typedText">Frontend Engineer</span><span class="typed-cursor"></span></p>
           <p class="tagline">Building interfaces that are clear,<br>functional, and purposefully crafted.</p>
           <a href="#contact" class="collab-btn">Let's collaborate ↗</a>
           <a href="resume.html" target="_blank" rel="noopener noreferrer" class="resume-btn">Resume ↓</a>
         </div>
 
         <div class="image-wrap" id="imageWrap">
-          <img class="img-base" src="assets/dre.png" alt="" id="imgBase" />
-          <img class="img-color" src="assets/dre.png" alt="0xkhingx" id="imgColor" />
+          <img class="img-base" src="assets/dre.png" alt="" id="imgBase" loading="lazy" />
+          <img class="img-color" src="assets/dre.png" alt="0xkhingx" id="imgColor" loading="lazy" />
         </div>
 
         <div class="hero-socials reveal reveal-delay-2">
@@ -891,6 +926,7 @@
     </div>
   </section>
 
+  <main>
   <!-- ═══════════════════════ SELECTED WORK ═══════════════════════════ -->
   <section class="card" id="work" style="overflow:visible;">
     <div class="section-bg-text">PORTFOLIO</div>
@@ -902,87 +938,87 @@
         <button type="button" class="filter-btn" data-filter="real">Real Project</button>
         <button type="button" class="filter-btn" data-filter="exploration">Exploration</button>
       </div>
-      <a href="#" class="view-all">View All Work ↗</a>
+      <a href="https://github.com/0xkhingx?tab=repositories" target="_blank" rel="noopener" class="view-all">View All Work ↗</a>
     </div>
 
     <div class="work-grid" id="workGrid">
       <!-- Each card has data-* attributes for the modal -->
       <div class="work-card reveal reveal-delay-1" data-type="real"
-           data-title="Project Title One"
+           data-title="premortem-labs"
            data-badge="Real Project"
-           data-desc="A full-stack web application built to solve a real problem. This project involved user research, prototyping, and iterative development to deliver a polished final product."
-           data-tags="Frontend,React,Tailwind CSS,Node.js"
-           data-live="https://your-project-link.com"
-           data-github="https://github.com/0xkhingx">
+           data-desc="AI protocol validator for biomedical research labs in Nigeria and West Africa. Catches protocol failures before they cost animals, time, and money using local LLM inference (Ollama + Gemma)."
+           data-tags="AI,Python,Ollama,Biomedical"
+           data-live="https://premortem-labs.vercel.app"
+           data-github="https://github.com/0xkhingx/premortem-labs">
         <div class="work-card-img">
-          <div class="placeholder">Drop project image here</div>
+          <div class="placeholder">Screenshot</div>
           <span class="work-badge">Real Project</span>
         </div>
         <div class="work-card-body">
-          <p class="work-card-title">Project Title One</p>
+          <p class="work-card-title">premortem-labs</p>
           <div class="work-tags">
-            <span class="work-tag">Frontend</span>
-            <span class="work-tag">Web App</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="work-card reveal reveal-delay-2" data-type="real"
-           data-title="Project Title Two"
-           data-badge="Real Project"
-           data-desc="A machine learning pipeline that processes and classifies data at scale. Includes data ingestion, model training, evaluation, and a REST API for inference."
-           data-tags="ML,Python,FastAPI,scikit-learn"
-           data-live="https://your-project-link.com"
-           data-github="https://github.com/0xkhingx">
-        <div class="work-card-img">
-          <div class="placeholder">Drop project image here</div>
-          <span class="work-badge">Real Project</span>
-        </div>
-        <div class="work-card-body">
-          <p class="work-card-title">Project Title Two</p>
-          <div class="work-tags">
-            <span class="work-tag">ML</span>
+            <span class="work-tag">AI</span>
             <span class="work-tag">Python</span>
           </div>
         </div>
       </div>
 
-      <div class="work-card reveal reveal-delay-3" data-type="exploration"
-           data-title="Project Title Three"
-           data-badge="Exploration"
-           data-desc="A design exploration pushing the boundaries of UI interaction. Focused on motion design and micro-interactions to create a memorable user experience."
-           data-tags="Design,Figma,UI/UX,Prototyping"
-           data-live="https://your-project-link.com"
-           data-github="">
+      <div class="work-card reveal reveal-delay-2" data-type="real"
+           data-title="vigil"
+           data-badge="Real Project"
+           data-desc="AI-custodied trader bonds. Stake. Watch. Slash. An AI agent monitors on-chain trader behavior and slashes bonds when rules are violated — trustless enforcement for crypto trading."
+           data-tags="AI,Blockchain,Solidity,TypeScript"
+           data-live="https://vigil-mu-three.vercel.app"
+           data-github="https://github.com/0xkhingx/vigil">
         <div class="work-card-img">
-          <div class="placeholder">Drop project image here</div>
-          <span class="work-badge">Exploration</span>
+          <div class="placeholder">Screenshot</div>
+          <span class="work-badge">Real Project</span>
         </div>
         <div class="work-card-body">
-          <p class="work-card-title">Project Title Three</p>
+          <p class="work-card-title">vigil</p>
           <div class="work-tags">
-            <span class="work-tag">Design</span>
-            <span class="work-tag">UI/UX</span>
+            <span class="work-tag">AI</span>
+            <span class="work-tag">Blockchain</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-card reveal reveal-delay-3" data-type="real"
+           data-title="yggdrasil"
+           data-badge="Real Project"
+           data-desc="AI-powered learning platform that grows a knowledge tree as you master topics. Branches unlock as you progress, and neglected trees wilt over time — making learning visible and motivating."
+           data-tags="AI,TypeScript,Next.js,Education"
+           data-live="https://yggdrasil-two.vercel.app"
+           data-github="https://github.com/0xkhingx/yggdrasil">
+        <div class="work-card-img">
+          <div class="placeholder">Screenshot</div>
+          <span class="work-badge">Real Project</span>
+        </div>
+        <div class="work-card-body">
+          <p class="work-card-title">yggdrasil</p>
+          <div class="work-tags">
+            <span class="work-tag">AI</span>
+            <span class="work-tag">Education</span>
           </div>
         </div>
       </div>
 
       <div class="work-card reveal reveal-delay-4" data-type="exploration"
-           data-title="Project Title Four"
+           data-title="creed"
            data-badge="Exploration"
-           data-desc="An experimental frontend build exploring component architecture and utility-first styling. Built as a learning exercise that evolved into a reusable design system."
-           data-tags="Frontend,Tailwind CSS,HTML,CSS"
-           data-live="https://your-project-link.com"
-           data-github="https://github.com/0xkhingx">
+           data-desc="A two-sided intelligence layer for Bags creators and holders. Creators see real-time fee earnings and holder loyalty scores. Holders form Packs and earn proportionally when the token grows."
+           data-tags="TypeScript,Blockchain,AI,Web3"
+           data-live="https://github.com/0xkhingx/creed"
+           data-github="https://github.com/0xkhingx/creed">
         <div class="work-card-img">
-          <div class="placeholder">Drop project image here</div>
+          <div class="placeholder">Screenshot</div>
           <span class="work-badge">Exploration</span>
         </div>
         <div class="work-card-body">
-          <p class="work-card-title">Project Title Four</p>
+          <p class="work-card-title">creed</p>
           <div class="work-tags">
-            <span class="work-tag">Frontend</span>
-            <span class="work-tag">Tailwind</span>
+            <span class="work-tag">Web3</span>
+            <span class="work-tag">AI</span>
           </div>
         </div>
       </div>
@@ -1078,7 +1114,7 @@
           </div>
           <div class="hover-card-actions"><span class="hc-x">✕</span><span class="hc-arrow">↗</span></div>
           <div class="hover-card-img">
-            <img src="assets/g5lDIc93_N4ftbhIYruMJibpjbJktnpFFJoTAW4Xg9lSSyPxmsseuy5fh4BhA1YV0mHhdU2Sm8mE19Qc3n_FxamvNc5eD3el1ZSPOQjXIlvUwtlWWmb3dKC7cipl52_zNBZ5MLcSknXwTl7hydTKRiybWXZooSyQOs_AaIBgEXFt0NiJ2GA3odhDh1hdR-tp.jpg" alt="Frontend" />
+            <img src="assets/frontend-service.jpg" alt="Frontend development showcase" loading="lazy" />
           </div>
         </div>
       </div>
@@ -1094,7 +1130,7 @@
             <p class="hover-card-desc">Training and deploying ML models — data pipelines to inference APIs, built with Python and modern tooling.</p>
           </div>
           <div class="hover-card-actions"><span class="hc-x">✕</span><span class="hc-arrow">↗</span></div>
-          <div class="hover-card-img"><img src="assets/david-pupaza-Q9-QEy1_jYI-unsplash.jpg" alt="ML Engineering"></div>
+          <div class="hover-card-img"><img src="assets/david-pupaza-Q9-QEy1_jYI-unsplash.jpg" alt="ML Engineering showcase" loading="lazy"></div>
         </div>
       </div>
 
@@ -1109,7 +1145,7 @@
             <p class="hover-card-desc">Wireframes, mockups, and design systems built for clarity, usability, and conversion.</p>
           </div>
           <div class="hover-card-actions"><span class="hc-x">✕</span><span class="hc-arrow">↗</span></div>
-          <div class="hover-card-img"><img src="assets/ali-shah-lakhani-sp1BZ1atp7M-unsplash.jpg" alt="Web Design"></div>
+          <div class="hover-card-img"><img src="assets/ali-shah-lakhani-sp1BZ1atp7M-unsplash.jpg" alt="Web Design showcase" loading="lazy"></div>
         </div>
       </div>
 
@@ -1125,7 +1161,7 @@
           </div>
           <div class="hover-card-actions"><span class="hc-x">✕</span><span class="hc-arrow">↗</span></div>
           <div class="hover-card-img">
-            <div class="placeholder" style="font-size:10px;color:#777;">Drop image here</div>
+            <img src="assets/david-pupaza-Q9-QEy1_jYI-unsplash.jpg" alt="Technical Writing" loading="lazy" />
           </div>
         </div>
       </div>
@@ -1171,7 +1207,7 @@
           <span class="exp-company">Self-Taught</span>
           <span class="exp-role">Brand & Visual Design</span>
         </div>
-        <span class="exp-period">20XX — Present</span>
+        <span class="exp-period">2023 — Present</span>
       </div>
     </div>
   </section>
@@ -1191,9 +1227,8 @@
     <div class="contact-footer reveal reveal-delay-1">
       <div class="name-pill">
         <div class="avatar">
-          <img src="assets/dre.png" alt="0xkhingx" />
+          <img src="assets/dre.png" alt="0xkhingx" loading="lazy" />
         </div>
-        0xkhingx
       </div>
 
       <div class="contact-socials">
@@ -1216,6 +1251,7 @@
       </div>
     </div>
   </section>
+  </main>
 
   <script>
     // ══════════════════════════════════════════
@@ -1234,14 +1270,19 @@
     });
 
     // Ring follows with lerp for smooth lag
+    let ringRAF = null;
     function animateRing() {
       ringX += (mouseX - ringX) * 0.12;
       ringY += (mouseY - ringY) * 0.12;
       ring.style.left = ringX + 'px';
       ring.style.top = ringY + 'px';
-      requestAnimationFrame(animateRing);
+      if (Math.abs(mouseX - ringX) > 0.5 || Math.abs(mouseY - ringY) > 0.5) {
+        ringRAF = requestAnimationFrame(animateRing);
+      }
     }
-    animateRing();
+    document.addEventListener('mousemove', () => {
+      if (!ringRAF) ringRAF = requestAnimationFrame(animateRing);
+    });
 
     // Expand ring on hoverable elements
     const hoverables = document.querySelectorAll('a, button, .work-card, .skill-card, .service-row');
@@ -1337,9 +1378,18 @@
       const imgEl = card.querySelector('.work-card-img');
       const imgSrc = imgEl.querySelector('img') ? imgEl.querySelector('img').src : null;
       const modalImg = document.getElementById('modalImg');
-      modalImg.innerHTML = imgSrc
-        ? `<img src="${imgSrc}" alt="${title}" />`
-        : `<div class="placeholder">No image yet</div>`;
+      modalImg.innerHTML = '';
+      if (imgSrc) {
+        const img = document.createElement('img');
+        img.src = imgSrc;
+        img.alt = title;
+        modalImg.appendChild(img);
+      } else {
+        const div = document.createElement('div');
+        div.className = 'placeholder';
+        div.textContent = 'No image yet';
+        modalImg.appendChild(div);
+      }
 
       document.getElementById('modalBadge').textContent = badge;
       document.getElementById('modalTitle').textContent = title;
@@ -1406,7 +1456,7 @@
         btn.classList.add('active');
         const f = btn.dataset.filter;
         workCards.forEach(c => {
-          c.style.display = (f === 'all' || c.dataset.type === f) ? 'block' : 'none';
+          c.style.display = (f === 'all' || c.dataset.type === f) ? '' : 'none';
         });
       });
     });
@@ -1422,7 +1472,24 @@
     });
 
     // ══════════════════════════════════════════
-    // 9. SERVICE TAP TOGGLE (mobile)
+    // 9. MOBILE NAV TOGGLE
+    // ══════════════════════════════════════════
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.querySelector('#hero .nav-links');
+    if (navToggle && navLinks) {
+      navToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('open');
+      });
+      navLinks.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => navLinks.classList.remove('open'));
+      });
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('#hero nav')) navLinks.classList.remove('open');
+      });
+    }
+
+    // ══════════════════════════════════════════
+    // 10. SERVICE TAP TOGGLE (mobile)
     // ══════════════════════════════════════════
     document.querySelectorAll('.service-row').forEach(row => {
       row.addEventListener('click', () => {

@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Ogundele Oluwadamilare — ML Engineer, Full-Stack Developer & Web Designer. Resume and experience." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>0x</text></svg>" />
   <title>Ogundele Oluwadamilare — Resume</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -419,17 +421,24 @@
     }
 
     /* ── PRINT / PDF STYLES ── */
+    @page { margin: 0.5in; }
     @media print {
       body {
         background: white;
         padding: 0;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
       }
       .download-bar { display: none; }
       .resume {
         box-shadow: none;
         max-width: 100%;
         width: 100%;
+        min-height: auto;
       }
+      .sidebar { border-right: 1px solid #e5e5e5; }
+      .photo-accent { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .exp-dot { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     }
   </style>
 </head>
@@ -453,8 +462,7 @@
 
       <!-- Photo -->
       <div class="photo-block">
-         <img src="assets/dre.png" alt="Ogundele Oluwadamilare" /> 
-        <div class="photo-placeholder">Your Photo</div>
+        <img src="assets/dre.png" alt="Ogundele Oluwadamilare" loading="lazy" />
         <div class="photo-accent">
           <div class="photo-accent-label">Specialisation</div>
           <div class="photo-accent-value">ML Eng. &amp; Frontend Dev</div>
